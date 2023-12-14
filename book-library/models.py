@@ -31,3 +31,6 @@ class Genre(Base):
 
     # Relationship with the 'Book' model, back_populates establishes bidirectional relationship
     books = relationship('Book', back_populates='genre')
+
+# Initialize the database engine
+engine = create_engine('sqlite:///library.db')
