@@ -37,3 +37,25 @@ def add_book():
     # Commit the changes to the database
     session.commit()
     print(f'Book "{title}" added successfully!')
+
+def view_books():
+    # Prompt user for their name
+    user = input('Your name: ')
+
+    # Create a new session
+    session = Session()
+
+    # Query the database to get the user
+    user_obj = session.query(User).filter_by(name=user).first()
+
+    if user_obj:
+        # If the user exists, retrieve and display their books
+        books = session.query(Book).filter_by(user=user_obj).all()
+        if books:
+            print(f'Books for {user}:')
+            for book in books:
+                print(f'- {book.title} (Genre: {book.genre.name})')
+        else:
+            print(f'No books found for {user}.')
+    else:
+        print(f'User "{user}" not found.')
