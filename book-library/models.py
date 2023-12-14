@@ -22,3 +22,9 @@ class Book(Base):
     user = relationship('User', back_populates='books') # Relationship back to the 'User' model
     genre_id = Column(Integer, ForeignKey('genres.id')) # Foreign key relationship with the 'Genre' model
     genre = relationship('Genre', back_populates='books') # Relationship back to the 'Genre' model
+
+# Genre model representing the 'genres' table
+class Genre(Base):
+    __tablename__ = 'genres'
+    id = Column(Integer, primary_key=True)
+    name = Column(String, nullable=False)
