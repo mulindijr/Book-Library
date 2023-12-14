@@ -34,3 +34,5 @@ class Genre(Base):
 
 # Initialize the database engine
 engine = create_engine('sqlite:///library.db')
+# Create the tables defined by the models in the database
+Base.metadata.create_all(engine)
