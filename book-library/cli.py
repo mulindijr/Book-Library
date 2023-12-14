@@ -59,3 +59,7 @@ def view_books():
             print(f'No books found for {user}.')
     else:
         print(f'User "{user}" not found.')
+
+def authenticate_admin(username, password):
+    # Simple authentication function
+    return username == 'Mulindi' and password == '1234'
