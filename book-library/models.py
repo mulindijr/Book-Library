@@ -10,4 +10,6 @@ class User(Base):
     name = Column(String, nullable=False)
     is_admin = Column(Boolean, default=False)
 
-    
+    # Relationship with the 'Book' model, back_populates establishes bidirectional relationship
+    books = relationship('Book', back_populates='user')
+
