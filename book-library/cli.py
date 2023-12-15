@@ -137,3 +137,27 @@ def delete_user():
         print(f'User "{user}" and associated books deleted successfully!')
     else:
         print(f'User "{user}" not found.')
+
+def update_name(entity_type):
+    # Prompt user for details
+    entity_name = input(f'Enter the {entity_type} name you want to update: ')
+    new_name = input(f'Enter the new name for {entity_type}: ')
+
+    # Check if the new name is provided
+    if not new_name:
+        print(f"Error: The {entity_type} name cannot be empty.")
+        return
+
+     # Create a new session
+    session = Session()
+
+    # Query the entity in the database based on the type
+    if entity_type == 'user':
+        entity = session.query(User).filter_by(name=entity_name).first()
+    elif entity_type == 'book':
+        entity = session.query(Book).filter_by(title=entity_name).first()
+    elif entity_type == 'genre':
+        entity = session.query(Genre).filter_by(name=entity_name).first()
+    else:
+        print('Invalid entity type.')
+        return
