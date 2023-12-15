@@ -63,3 +63,30 @@ def view_books():
 def authenticate_admin(username, password):
     # Simple authentication function
     return username == 'Mulindi' and password == '1234'
+
+def view_all_data():
+    # Prompt admin for credentials
+    admin_username_input = input('Admin username: ')
+    admin_password_input = input('Admin password: ')
+
+    # Check admin credentials
+    if authenticate_admin(admin_username_input, admin_password_input):
+        # If authenticated, create a session and retrieve all users
+        session = Session()
+        users = session.query(User).all()
+        print('\n ==== Users and their Books ====')
+        if users:
+            for user in users:
+                print(f'\nUser: {user.name}')
+                # For each user, retrieve and display their books
+                books = session.query(Book).filter_by(user=user).all()
+                if books:
+                    print('Books:')
+                    for book in books:
+                        print(f'- {book.title} (Genre: {book.genre.name})')
+                else:
+                    print('No books found for this user.')
+        else:
+            print('No users found.')
+    else:
+        print('Access denied. Invalid admin credentials.')
