@@ -118,3 +118,22 @@ def delete_book():
             print(f'Book "{title}" not found for {user}.')
     else:
         print(f'User "{user}" not found.')
+
+def delete_user():
+    # Prompt to delete user
+    user = input('User name: ')
+
+    # Create a new session
+    session = Session()
+     # Query the user in the database
+    user_obj = session.query(User).filter_by(name=user).first()
+    if user_obj:
+        # If the user exists, delete all books associated with the user
+        session.query(Book).filter_by(user=user_obj).delete()
+
+        # Delete the user
+        session.delete(user_obj)
+        session.commit()
+        print(f'User "{user}" and associated books deleted successfully!')
+    else:
+        print(f'User "{user}" not found.')
