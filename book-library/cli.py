@@ -161,3 +161,15 @@ def update_name(entity_type):
     else:
         print('Invalid entity type.')
         return
+
+    # If the entity is found, update its name and commit changes
+    if entity:
+        if entity_type == 'user' or entity_type == 'genre':
+            entity.name = new_name
+        elif entity_type == 'book':
+            entity.title = new_name
+
+        session.commit()
+        print(f'{entity_type.capitalize()} name updated successfully!')
+    else:
+        print(f'{entity_type.capitalize()} "{entity_name}" not found.')
