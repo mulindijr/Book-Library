@@ -90,3 +90,31 @@ def view_all_data():
             print('No users found.')
     else:
         print('Access denied. Invalid admin credentials.')
+
+def delete_book():
+    # Prompt user for details
+    user = input('Your name: ')
+    title = input('Book title: ')
+
+    # Create a new session
+    session = Session()
+    # Query the user in the database
+    user_obj = session.query(User).filter_by(name=user).first()
+    if user_obj:
+        # If the user exists, query the book and delete it
+        book = session.query(Book).filter_by(user=user_obj, title=title).first()
+        if book:
+            session.delete(book)
+            session.commit()
+            print(f'Book "{title}" deleted successfully!')
+
+            # Check if the user has no more books, then delete the user
+            remaining_books = session.query(Book).filter_by(user=user_obj).count()
+            if remaining_books == 0:
+                session.delete(user_obj)
+                session.commit()
+                print(f'User "{user}" deleted since there are no more books.')
+        else:
+            print(f'Book "{title}" not found for {user}.')
+    else:
+        print(f'User "{user}" not found.')
