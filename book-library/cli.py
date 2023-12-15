@@ -173,3 +173,55 @@ def update_name(entity_type):
         print(f'{entity_type.capitalize()} name updated successfully!')
     else:
         print(f'{entity_type.capitalize()} "{entity_name}" not found.')
+
+
+if __name__ == '__main__':
+    print("\n======WELCOME TO BOOK LIBRARY======")
+    while True:
+        print('\nChoose action:')
+        print('1. Add a book')
+        print('2. View books')
+        print('3. View all the users and their books')
+        print('4. Delete a book')
+        print('5. Delete a user')
+        print('6. Update user, book, or genre name')
+        print('7. Exit')
+
+        # Prompt user for choice
+        choice = input('Enter the number corresponding to the action: ')
+
+        # Execute the chosen action
+        if choice == '1':
+            add_book()
+        elif choice == '2':
+            view_books()
+        elif choice == '3':
+            view_all_data()
+        elif choice == '4':
+            delete_book()
+        elif choice == '5':
+            delete_user()
+        elif choice == '6':
+            print('Choose entity type to update:')
+            print('1. User')
+            print('2. Book')
+            print('3. Genre')
+            entity_choice = input('Enter the number corresponding to the entity type: ')
+
+            # Validate and execute the update
+            if entity_choice == '1':
+                entity_type = 'user'
+            elif entity_choice == '2':
+                entity_type = 'book'
+            elif entity_choice == '3':
+                entity_type = 'genre'
+            else:
+                print('Invalid entity type.')
+                continue
+
+            update_name(entity_type)
+        elif choice == '7':
+            print('Exiting the program.')
+            break
+        else:
+            print('Invalid choice. Please try again.')
